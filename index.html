@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kika Live</title>
+
+  <!-- Іконка -->
+  <link rel="icon" type="image/png" href="kika.png">
+
+  <!-- PWA -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="kika.png">
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    body {margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;background:radial-gradient(circle at top,#7a1fff,#120022);color:white;text-align:center;}
+    header{padding:20px;font-size:28px;font-weight:800;letter-spacing:1px;}
+    .logo{font-size:42px;color:#ff4dff;text-shadow:0 0 20px #ff4dff;}
+    .container{padding:20px;}
+    button{background:linear-gradient(135deg,#ff4dff,#7a1fff);border:none;border-radius:14px;padding:16px 26px;font-size:18px;font-weight:bold;color:white;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,0.4);transition: transform 0.1s;}
+    button:active{transform:scale(0.96);}
+    video{margin-top:20px;width:95%;max-width:720px;border-radius:16px;background:black;box-shadow:0 0 40px rgba(255,77,255,0.4);}
+    footer{margin-top:30px;font-size:14px;opacity:0.7;}
+  </style>
+</head>
+<body>
+<header><div class="logo">KIKA LIVE</div>🎮 Стрім екрану та ігор</header>
+<div class="container">
+<button id="startStream">▶️ Почати стрім</button><br/>
+<video id="videoStream" autoplay playsinline controls></video>
+</div>
+<footer>© 2026 Kika Live • beta</footer>
+<script>
+const btn=document.getElementById("startStream");
+const video=document.getElementById("videoStream");
+btn.onclick=async()=>{
+try{
+let stream;
+const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream;
+if(isIOS){
+stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"user"},audio:true});
+}else if(navigator.mediaDevices.getDisplayMedia){
+stream=await navigator.mediaDevices.getDisplayMedia({video:true,audio:true});
+}else{
+stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});
+}
+video.srcObject=stream;
+}catch(e){alert("Стрім не дозволено 😢\n"+e);console.error(e);}
+};
+</script>
+</body>
+</html>

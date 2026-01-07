@@ -1,0 +1,11 @@
+{
+  "name": "Kika Live",
+  "short_name": "KikaLive",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#120022",
+  "theme_color": "#7a1fff",
+  "icons": [
+    {"src": "kika.png","sizes": "512x512","type": "image/png"}
+  ]
+}
